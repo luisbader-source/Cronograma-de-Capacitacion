@@ -89,7 +89,7 @@ const DAYS_ORDER = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
 // Datos de consolidado de capacitaciones
 const CONSOLIDATED_DATA = [
-  { day: "Lunes", date: "23/02/2026", students: 101, completed: true },
+  { day: "Lunes", date: "23/02/2026", students: 103, completed: true },
   { day: "Martes", date: "24/02/2026", students: 0, completed: false },
   { day: "Miércoles", date: "25/02/2026", students: 0, completed: false },
   { day: "Jueves", date: "26/02/2026", students: 0, completed: false },
