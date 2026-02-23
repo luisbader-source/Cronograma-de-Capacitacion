@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Video, Users } from "lucide-react";
+import { Calendar, Clock, Video, Users, TrendingUp, CheckCircle } from "lucide-react";
 
 /**
  * Diseño: Modernismo Corporativo Elevado
@@ -87,6 +87,15 @@ const SCHEDULE_DATA = [
 
 const DAYS_ORDER = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
+// Datos de consolidado de capacitaciones
+const CONSOLIDATED_DATA = [
+  { day: "Lunes", date: "23/02/2026", students: 101, completed: true },
+  { day: "Martes", date: "24/02/2026", students: 0, completed: false },
+  { day: "Miércoles", date: "25/02/2026", students: 0, completed: false },
+  { day: "Jueves", date: "26/02/2026", students: 0, completed: false },
+  { day: "Viernes", date: "27/02/2026", students: 0, completed: false },
+];
+
 export default function Home() {
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
 
@@ -125,6 +134,74 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {/* Consolidado de Capacitaciones */}
+      <section className="bg-gradient-to-r from-primary/10 to-secondary/20 border-b border-border">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-heading text-foreground mb-2 flex items-center justify-center gap-2">
+              <TrendingUp className="w-6 h-6 text-primary" />
+              Consolidado de Capacitaciones
+            </h2>
+            <p className="text-muted-foreground">
+              Avance diario de estudiantes capacitados durante la semana
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {CONSOLIDATED_DATA.map((day, index) => (
+              <Card 
+                key={day.day} 
+                className={`text-center transition-all duration-300 ${
+                  day.completed 
+                    ? 'bg-primary/5 border-primary/30 shadow-sm' 
+                    : 'bg-white border-border opacity-75'
+                }`}
+              >
+                <CardContent className="pt-4 pb-4">
+                  <div className="flex items-center justify-center mb-2">
+                    {day.completed ? (
+                      <CheckCircle className="w-5 h-5 text-green-600" />
+                    ) : (
+                      <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30" />
+                    )}
+                  </div>
+                  <h3 className="font-heading text-sm text-foreground mb-1">
+                    {day.day}
+                  </h3>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {day.date}
+                  </p>
+                  <div className="text-lg font-bold text-primary">
+                    {day.students}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    estudiantes
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="mt-6 text-center">
+            <div className="inline-flex items-center gap-4 bg-white rounded-lg px-6 py-3 border border-border shadow-sm">
+              <div className="text-left">
+                <p className="text-sm text-muted-foreground">Total acumulado</p>
+                <p className="text-2xl font-bold text-primary">
+                  {CONSOLIDATED_DATA.reduce((total, day) => total + day.students, 0)}
+                </p>
+              </div>
+              <div className="w-px h-8 bg-border" />
+              <div className="text-left">
+                <p className="text-sm text-muted-foreground">Progreso semanal</p>
+                <p className="text-lg font-semibold text-foreground">
+                  {CONSOLIDATED_DATA.filter(day => day.completed).length}/5 días
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
