@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Video, Users, TrendingUp, CheckCircle } from "lucide-react";
+import { Calendar, Clock, Video, Users, TrendingUp, CheckCircle, BarChart3 } from "lucide-react";
 
 /**
  * Diseño: Modernismo Corporativo Elevado
@@ -199,6 +199,108 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+          
+          {/* Gráfica de Progreso */}
+          <div className="mt-8">
+            <Card className="border border-border bg-white">
+              <CardHeader className="bg-secondary/50">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  Gráfica de Progreso Semanal
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-4">
+                  {/* Barra de progreso principal */}
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium text-foreground">Progreso General</span>
+                      <span className="text-sm text-muted-foreground">
+                        {CONSOLIDATED_DATA.filter(day => day.completed).length}/5 días
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500 ease-out"
+                        style={{ 
+                          width: `${(CONSOLIDATED_DATA.filter(day => day.completed).length / 5) * 100}%` 
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Gráfica de barras por día */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-foreground">Estudiantes por Día</h4>
+                    <div className="space-y-2">
+                      {CONSOLIDATED_DATA.map((day, index) => {
+                        const maxStudents = Math.max(...CONSOLIDATED_DATA.map(d => d.students));
+                        const percentage = maxStudents > 0 ? (day.students / maxStudents) * 100 : 0;
+                        
+                        return (
+                          <div key={day.day} className="flex items-center gap-3">
+                            <div className="w-16 text-sm font-medium text-foreground">
+                              {day.day}
+                            </div>
+                            <div className="flex-1">
+                              <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div 
+                                  className={`h-full rounded-full transition-all duration-500 ease-out flex items-center justify-end pr-2 ${
+                                    day.completed 
+                                      ? 'bg-gradient-to-r from-primary to-primary/80' 
+                                      : 'bg-gray-300'
+                                  }`}
+                                  style={{ width: `${percentage}%` }}
+                                >
+                                  {day.students > 0 && (
+                                    <span className="text-xs text-white font-medium">
+                                      {day.students}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="w-8 text-center">
+                              {day.completed ? (
+                                <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
+                              ) : (
+                                <div className="w-5 h-5 rounded-full border-2 border-gray-300 mx-auto" />
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Estadísticas adicionales */}
+                  <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">
+                        {CONSOLIDATED_DATA.reduce((total, day) => total + day.students, 0)}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Total Estudiantes</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-foreground">
+                        {Math.round(
+                          CONSOLIDATED_DATA.reduce((total, day) => total + day.students, 0) / 
+                          CONSOLIDATED_DATA.filter(day => day.completed).length || 1
+                        )}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Promedio/Día</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">
+                        {Math.round((CONSOLIDATED_DATA.filter(day => day.completed).length / 5) * 100)}%
+                      </div>
+                      <div className="text-xs text-muted-foreground">Completado</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
