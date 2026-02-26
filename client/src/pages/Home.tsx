@@ -2,15 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Video, Users, TrendingUp, CheckCircle, BarChart3 } from "lucide-react";
+i           mport { Calendar, Clock, Video, Users, TrendingUp, CheckCircle, BarChart3 } from "lucide-react";
 
-/**
- * Diseño: Modernismo Corporativo Elevado
- * - Paleta: Verde Unicórdoba (#1B7D3D) + Blanco + Gris neutro
- * - Tipografía: Poppins (títulos) + Inter (cuerpo)
- * - Layout: Panel lateral de facultades + contenido principal
- * - Jerarquía clara y espaciado generoso
- */
+
 
 const SCHEDULE_DATA = [
   {
@@ -92,7 +86,7 @@ const CONSOLIDATED_DATA = [
   { day: "Lunes", date: "23/02/2026", students: 103, completed: true },
   { day: "Martes", date: "24/02/2026", students: 332, completed: true },
   { day: "Miércoles", date: "25/02/2026", students: 0, completed: false },
-  { day: "Jueves", date: "26/02/2026", students: 0, completed: false },
+  { day: "Jueves", date: "26/02/2026", students: 150, completed: true },
   { day: "Viernes", date: "27/02/2026", students: 0, completed: false },
 ];
 
