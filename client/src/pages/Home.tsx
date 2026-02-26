@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-i           mport { Calendar, Clock, Video, Users, TrendingUp, CheckCircle, BarChart3 } from "lucide-react";
+import { Calendar, Clock, Video, Users, TrendingUp, CheckCircle, BarChart3 } from "lucide-react";
 
 
 
