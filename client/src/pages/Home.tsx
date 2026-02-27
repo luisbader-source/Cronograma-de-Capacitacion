@@ -87,7 +87,7 @@ const CONSOLIDATED_DATA = [
   { day: "Martes", date: "24/02/2026", students: 332, completed: true },
   { day: "Miércoles", date: "25/02/2026", students: 0, completed: false },
   { day: "Jueves", date: "26/02/2026", students: 162, completed: true },
-  { day: "Viernes", date: "27/02/2026", students: 0, completed: false },
+  { day: "Viernes", date: "27/02/2026", students: 65, completed: true },
 ];
 
 export default function Home() {
